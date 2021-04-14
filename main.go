@@ -10,13 +10,13 @@ import (
 func main() {
 	config := models.Config{
 		CanisterName:   "crypto_oracle",
-		UpdateInterval: 5 * time.Second,
+		UpdateInterval: 1 * time.Minute,
 	}
 
 	engine := models.Engine{
 		Metadata: []models.MappingMetadata{
 			{
-				Key: "Bitcoin",
+				Key: "bitcoin_price",
 				Endpoints: []models.Endpoint{
 					{
 						Endpoint:  "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
@@ -25,11 +25,20 @@ func main() {
 				},
 			},
 			{
-				Key: "Ethereum",
+				Key: "ethereum_price",
 				Endpoints: []models.Endpoint{
 					{
 						Endpoint:  "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
 						JSONPaths: map[string]string{"usd_per_token": "$.ethereum.usd"},
+					},
+				},
+			},
+			{
+				Key: "ampleforth_price",
+				Endpoints: []models.Endpoint{
+					{
+						Endpoint:  "https://api.coingecko.com/api/v3/simple/price?ids=ampleforth&vs_currencies=usd",
+						JSONPaths: map[string]string{"usd_per_token": "$.ampleforth.usd"},
 					},
 				},
 			},
